@@ -1,10 +1,13 @@
 package constants.locators;
 
 public class ProductPageConstants {
-    public static final String PRICE = "price";
-    public static final String QUANTITY = "qty";
-    public static final String BUY = "product-addtocart-button";
-    public static final String ADDING_TO_CART = "disabled";
+    public static final String QUANTITY_FIELD = "qty";
+    public static final String BUY_BUTTON = "add_button";
+    public static final String ADD_TO_CART_BUTTON = "product-addtocart-button";
+    public static final String ADDING_TO_CART_BUTTON = "disabled";
     public static final String INSUFFICIENT_QUANTITY_MESSAGE = "messages";
+    public static final String DECREASE_BUTTON = "decrease_btn";
+    public static final String INCREASE_BUTTON = "increase_btn";
+    public static final String PRODUCT_PRICE = "price";
 
 }

@@ -1,9 +1,22 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Tests">
-    <test name="Simple Test">
+<suite name="All Tests" parallel="tests">
+    <test name="Chrome Test">
+        <parameter name="browser" value="chrome"></parameter>
         <classes>
-            <class name="YandexMusicTest"></class>
+            <class name="BooksTest"></class>
         </classes>
     </test>
+<!--    <test name="Firefox Test">-->
+<!--        <parameter name="browser" value="firefox"></parameter>-->
+<!--        <classes>-->
+<!--            <class name="BooksTest"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="Edge Test">-->
+<!--        <parameter name="browser" value="MicrosoftEdge"></parameter>-->
+<!--        <classes>-->
+<!--            <class name="BooksTest"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
 
 </suite>
