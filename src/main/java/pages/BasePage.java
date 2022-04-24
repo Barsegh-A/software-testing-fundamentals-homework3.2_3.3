@@ -25,8 +25,7 @@ public class BasePage {
     }
 
     protected void click(By by) {
-        waitUntilElementIsClickable(by);
-        getElement(by).click();
+        waitUntilElementIsClickable(by).click();
     }
 
     protected void click(By by, int index) {

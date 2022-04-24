@@ -38,8 +38,7 @@ public class ProductPage extends BasePage{
     }
 
     public int getProductPrice(){
-        String text = getText(productPrice);
-        return getNumbers(text);
+        return Integer.parseInt(getElement(productPrice).getAttribute("data-price-amount"));
     }
 
     public void clickDecreaseQuantityButton() {
