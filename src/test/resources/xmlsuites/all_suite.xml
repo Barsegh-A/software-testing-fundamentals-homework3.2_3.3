@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Tests">
+    <test name="Simple Test">
+        <classes>
+            <class name="YandexMusicTest"></class>
+        </classes>
+    </test>
+
+</suite>
