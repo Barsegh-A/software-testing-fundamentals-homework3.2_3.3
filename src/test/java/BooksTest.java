@@ -1,13 +1,21 @@
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.HeaderPage;
 import pages.ProductPage;
 import pages.SearchResultsPage;
 
 import static constants.messages.ErrorMessages.*;
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class BooksTest extends BaseTest{
+
+    @Test
+    public void invalidSearch(){
+        HeaderPage headerPage = new HeaderPage(driver);
+        headerPage.setSearchKeyword("asdf");
+        SearchResultsPage searchResultsPage = headerPage.clickSearchButton();
+        assertTrue(searchResultsPage.isNoResultMessageDisplayed(), NO_SEARCH_RESULT_ERROR_MESSAGE);
+    }
 
     @Test
     public void search(){
@@ -21,11 +29,15 @@ public class BooksTest extends BaseTest{
     }
 
     @Test
-    public void invalidSearch(){
+    public void cartItemsCount(){
+        SoftAssert softAssert = new SoftAssert();
+        ProductPage productPage = new ProductPage(driver, "61091");
         HeaderPage headerPage = new HeaderPage(driver);
-        headerPage.setSearchKeyword("asdf");
-        SearchResultsPage searchResultsPage = headerPage.clickSearchButton();
-        assertTrue(searchResultsPage.isNoResultMessageDisplayed(), NO_SEARCH_RESULT_ERROR_MESSAGE);
+        softAssert.assertEquals(headerPage.getCartItemsCount(), 0, CART_ITEMS_COUNT_ERROR_MESSAGE);
+        productPage.clickBuyButton();
+        productPage.waitUntilAddingToCartDisappears();
+        softAssert.assertEquals(headerPage.getCartItemsCount(), 2, CART_ITEMS_COUNT_ERROR_MESSAGE);
+        softAssert.assertAll();
     }
 
 }

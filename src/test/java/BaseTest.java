@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static constants.urls.URL.BASE_URL;
+
 public abstract class BaseTest {
     public static WebDriver driver;
-//    public static String url = "https://music.yandex.ru/";
-    public static String url = "https://books.am";
 
     @BeforeSuite
     public static void initDriver() throws MalformedURLException {
@@ -31,7 +31,7 @@ public abstract class BaseTest {
 
     @BeforeMethod
     public void openSUT(){
-        driver.get(url);
+        driver.get(BASE_URL);
     }
 
     @AfterMethod
