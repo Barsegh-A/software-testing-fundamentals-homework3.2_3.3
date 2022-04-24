@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 import static constants.locators.SearchResultsPageConstants.*;
 import static constants.urls.URL.SEARCH_URL;
+import static utils.TestUtils.getNumbers;
 
 public class SearchResultsPage extends BasePage{
 
@@ -38,8 +39,7 @@ public class SearchResultsPage extends BasePage{
 
     public int getSearchResultItemPrice(int index){
         String text = getText(searchResultItemPrice, index);
-        int price = Integer.parseInt(text.replaceAll("[^0-9]", ""));
-        return price;
+        return getNumbers(text);
     }
 
     public int getSearchResultsCount() {

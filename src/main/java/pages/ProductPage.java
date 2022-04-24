@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 
 
 import static constants.locators.ProductPageConstants.*;
-import static constants.locators.SearchResultsPageConstants.SEARCH_RESULT_ITEM_PRICE;
 import static constants.urls.URL.PRODUCT_URL;
+import static utils.TestUtils.getNumbers;
 
 public class ProductPage extends BasePage{
 
@@ -39,8 +39,7 @@ public class ProductPage extends BasePage{
 
     public int getProductPrice(){
         String text = getText(productPrice);
-        int price = Integer.parseInt(text.replaceAll("[^0-9]", ""));
-        return price;
+        return getNumbers(text);
     }
 
     public void clickDecreaseQuantityButton() {
@@ -52,7 +51,6 @@ public class ProductPage extends BasePage{
     }
 
     public void clickBuyButton() {
-        waitUntilElementIsClickable(addToCartButton);
         click(buyButton);
     }
 

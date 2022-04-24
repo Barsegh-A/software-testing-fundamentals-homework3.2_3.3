@@ -50,22 +50,12 @@ public class BooksTest extends BaseTest {
     }
 
     @Test
-    public void productCountIncreaseDecrease() {
-        ProductPage productPage = new ProductPage(driver, "60985");
-        assertEquals(productPage.getQuantity(), 1, WRONG_PRODUCT_QUANTITY_ERROR_MESSAGE);
-        productPage.clickIncreaseQuantityButton();
-        assertEquals(productPage.getQuantity(), 2, WRONG_PRODUCT_QUANTITY_ERROR_MESSAGE);
-        productPage.clickDecreaseQuantityButton();
-        assertEquals(productPage.getQuantity(), 1, WRONG_PRODUCT_QUANTITY_ERROR_MESSAGE);
-    }
-
-    @Test
     public void priceTest(){
         SearchResultsPage searchResultsPage = new SearchResultsPage(driver, "ապուշը");
         int priceInSearch = searchResultsPage.getSearchResultItemPrice(0);
         ProductPage productPage = searchResultsPage.clickSearchResultItem(0);
         int priceInProduct = productPage.getProductPrice();
-        assertEquals(priceInSearch, priceInProduct);
+        assertEquals(priceInSearch, priceInProduct, WRONG_PRICE_ERROR_MESSAGE);
     }
 
 }
