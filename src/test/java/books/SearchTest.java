@@ -2,10 +2,7 @@ package books;
 
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.HeaderPage;
-import pages.ProductItemComponent;
-import pages.ProductPage;
-import pages.SearchResultsPage;
+import pages.*;
 
 import java.util.stream.IntStream;
 
@@ -88,5 +85,42 @@ public class SearchTest extends BaseTest {
         assertFalse(headerPage.isSearchSuggestionsViewPresent(), "Suggestions appear for invalid key");
     }
 
+    @Test
+    public void emptyAdvancedSearch() {
+        HeaderPage headerPage = new HeaderPage(driver);
+        headerPage.waitUntilSearchCategoryDropdownButtonIsClickable();
+        AdvancedSearchPage advancedSearchPage = headerPage.clickAdvancedSearchButton();
+        advancedSearchPage.clickEmptySearchButton();
+        assertEquals(headerPage.getMessage(), "Enter a search term and try again.", "Wrong message for empty search");
+    }
+
+    @Test
+    public void searchByAuthor() {
+        SoftAssert softAssert = new SoftAssert();
+        HeaderPage headerPage = new HeaderPage(driver);
+        headerPage.waitUntilSearchCategoryDropdownButtonIsClickable();
+        AdvancedSearchPage advancedSearchPage = headerPage.clickAdvancedSearchButton();
+        String searchTerm = "Օտյան";
+        advancedSearchPage.setAuthorKeyword(searchTerm);
+        SearchResultsPage searchResultsPage = advancedSearchPage.clickSearchButton();
+        softAssert.assertEquals(searchResultsPage.getPageTitle().toLowerCase(), "Կատալոգի ընդլայնված որոնում".toLowerCase(), "Search page title is wrong");
+        IntStream.range(0, searchResultsPage.getSearchResultsCount())
+                .forEach((int i) -> {
+                    ProductItemComponent item = searchResultsPage.getProduct(i);
+                    boolean authorContainsSearchTerm = item.getAuthor().toLowerCase().contains(searchTerm.toLowerCase());
+                    softAssert.assertTrue(authorContainsSearchTerm, "Author contain the search term: " + item.getAuthor());
+                });
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void invalidSearchByAuthor() {
+        HeaderPage headerPage = new HeaderPage(driver);
+        headerPage.waitUntilSearchCategoryDropdownButtonIsClickable();
+        AdvancedSearchPage advancedSearchPage = headerPage.clickAdvancedSearchButton();
+        advancedSearchPage.setAuthorKeyword("Օտյա");
+        SearchResultsPage searchResultsPage = advancedSearchPage.clickSearchButton();
+        assertTrue(searchResultsPage.isNoResultMessageDisplayed(), NO_SEARCH_RESULT_ERROR_MESSAGE);
+    }
 
 }

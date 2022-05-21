@@ -12,6 +12,7 @@ public class HeaderPage extends BasePage {
     private By searchCategoryDropDownButton = By.className(SEARCH_CATEGORY_DROPDOWN_BUTTON);
     private By searchSuggestions = By.id(SEARCH_SUGGESTIONS);
     private By searchSuggestionItem = By.className(SEARCH_SUGGESTION_ITEM);
+    private By advancedSearchButton = By.className(ADVANCED_SEARCH_BUTTON);
     private By cartItemsCount = By.className(CART_ITEMS_COUNT);
 
     private By cartButton = By.className(CART_BUTTON);
@@ -41,6 +42,11 @@ public class HeaderPage extends BasePage {
     public SearchResultsPage clickSearchButton() {
         click(searchButton);
         return new SearchResultsPage(driver);
+    }
+
+    public AdvancedSearchPage clickAdvancedSearchButton() {
+        click(advancedSearchButton);
+        return new AdvancedSearchPage(driver);
     }
 
     public CartPage clickCartButton() {

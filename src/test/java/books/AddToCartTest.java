@@ -16,8 +16,8 @@ public class AddToCartTest extends BaseTest{
         assertEquals(cartPage.getEmptyCartMessage(), "Ձեր զամբյուղում ոչինչ առկա չէ", WRONG_EMPTY_CART_ERROR_MESSAGE);
     }
 
-    @Test
-    //TODO fix or remove move target out of bounds
+    //TODO fix or remove move target out of bounds exception since size is not set to 100%
+    @Test(enabled = false)
     public void addToCartFromHome(){
         SoftAssert softAssert = new SoftAssert();
         HeaderPage headerPage = new HeaderPage(driver);
