@@ -8,6 +8,7 @@ public class ProductPageConstants {
     public static final String INSUFFICIENT_QUANTITY_MESSAGE = "messages";
     public static final String DECREASE_BUTTON = "decrease_btn";
     public static final String INCREASE_BUTTON = "increase_btn";
-    public static final String PRODUCT_PRICE = "price-wrapper";
+    public static final String PRODUCT_PRICE = "span.product_price span.price";
+    public static final String PRODUCT_NAME = "div.name_brand_options > div.section_title";
 
 }

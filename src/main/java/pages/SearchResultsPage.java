@@ -5,14 +5,12 @@ import org.openqa.selenium.WebDriver;
 
 import static constants.locators.SearchResultsPageConstants.*;
 import static constants.urls.URL.SEARCH_URL;
-import static utils.TestUtils.getNumbers;
 
 public class SearchResultsPage extends BasePage{
 
     private By pageTitle = By.className(PAGE_TITLE);
     private By noResultMessage = By.className(NO_RESULT_MESSAGE);
     private By searchResultItem = By.className(SEARCH_RESULT_ITEM);
-    private By searchResultItemPrice = By.className(SEARCH_RESULT_ITEM_PRICE);
 
     public SearchResultsPage(WebDriver driver) {
         super(driver);
@@ -37,13 +35,11 @@ public class SearchResultsPage extends BasePage{
         return new ProductPage(driver);
     }
 
-    public int getSearchResultItemPrice(int index){
-        String text = getText(searchResultItemPrice, index);
-        return getNumbers(text);
-    }
-
     public int getSearchResultsCount() {
         return getElements(searchResultItem).size();
     }
 
+    public ProductItemComponent getProduct(int index) {
+        return new ProductItemComponent(driver, getElement(searchResultItem, index));
+    }
 }
