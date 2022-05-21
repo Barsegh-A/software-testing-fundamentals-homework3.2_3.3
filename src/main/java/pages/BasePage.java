@@ -76,11 +76,14 @@ public abstract class BasePage {
     }
 
     protected WebElement waitUntilElementIsClickable(By by) {
-        return new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.elementToBeClickable(by));
+        return getWaitUtils(driver).waitUntilElementIsClickable(by);
     }
 
     protected WebElement waitUntilElementAppears(By by) {
         return getWaitUtils(driver).waitUntilElementIsVisible(by);
+    }
+
+    protected void waitUntilAttributeIs(By by, String attribute, String value) {
+        getWaitUtils(driver).waitUntilAttributeIs(by, attribute, value);
     }
 }

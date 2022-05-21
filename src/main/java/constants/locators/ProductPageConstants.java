@@ -9,5 +9,6 @@ public class ProductPageConstants {
     public static final String DECREASE_BUTTON = "decrease_btn";
     public static final String INCREASE_BUTTON = "increase_btn";
     public static final String PRODUCT_PRICE = "price-wrapper";
+    public static final String PRODUCT_NAME = "div.name_brand_options > div.section_title";
 
 }

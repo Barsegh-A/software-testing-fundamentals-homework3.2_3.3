@@ -8,7 +8,7 @@ import static constants.locators.ProductPageConstants.*;
 import static constants.urls.URL.PRODUCT_URL;
 import static utils.TestUtils.getNumbers;
 
-public class ProductPage extends BasePage{
+public class ProductPage extends BasePage {
 
     private By quantityField = By.id(QUANTITY_FIELD);
     private By decreaseQuantityButton = By.className(DECREASE_BUTTON);
@@ -18,6 +18,7 @@ public class ProductPage extends BasePage{
     private By addingToCartButton = By.className(ADDING_TO_CART_BUTTON);
     private By insufficientQuantityMessage = By.className(INSUFFICIENT_QUANTITY_MESSAGE);
     private By productPrice = By.className(PRODUCT_PRICE);
+    private By productName = By.cssSelector(PRODUCT_NAME);
 
     public ProductPage(WebDriver driver) {
         super(driver);
@@ -37,8 +38,12 @@ public class ProductPage extends BasePage{
         return Integer.parseInt(getValue(quantityField));
     }
 
-    public int getProductPrice(){
+    public int getProductPrice() {
         return Integer.parseInt(getElement(productPrice).getAttribute("data-price-amount"));
+    }
+
+    public String getProductName() {
+        return getText(productName);
     }
 
     public void clickDecreaseQuantityButton() {

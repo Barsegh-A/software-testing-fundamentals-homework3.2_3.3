@@ -14,6 +14,7 @@ public class HeaderPage extends BasePage {
     private By cartItemsCount = By.className(CART_ITEMS_COUNT);
 
     private By cartButton = By.className(CART_BUTTON);
+    private By message = By.cssSelector(MESSAGE);
 
     public HeaderPage(WebDriver driver) {
         super(driver);
@@ -51,5 +52,9 @@ public class HeaderPage extends BasePage {
             return 0;
         }
         return Integer.parseInt(count);
+    }
+
+    public String getMessage(){
+        return getText(message);
     }
 }

@@ -6,6 +6,6 @@ public class HeaderPageConstants {
     public static final String SEARCH_SUGGESTIONS = "search_autocomplete";
     public static final String CART_ITEMS_COUNT = "count_block";
     public static final String CART_BUTTON = "shopcart_block";
-
+    public static final String MESSAGE = "div[data-bind='html: message.text']";
 
 }
