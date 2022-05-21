@@ -32,7 +32,7 @@ public class SearchTest extends BaseTest {
                     ProductItemComponent item = searchResultsPage.getProduct(i);
                     boolean titleContainsSearchTerm = item.getName().toLowerCase().contains(searchTerm.toLowerCase());
                     boolean authorContainsSearchTerm = item.getAuthor().toLowerCase().contains(searchTerm.toLowerCase());
-                    softAssert.assertTrue(titleContainsSearchTerm || authorContainsSearchTerm, "Neither title nor author contain the search term: " + item.getName() + ", " + item.getAuthor());
+                    softAssert.assertTrue(titleContainsSearchTerm || authorContainsSearchTerm, WRONG_SEARCH_BEHAVIOUR_ERROR_MESSAGE + item.getName() + ", " + item.getAuthor());
                 });
         softAssert.assertAll();
     }
@@ -53,8 +53,8 @@ public class SearchTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         HeaderPage headerPage = new HeaderPage(driver);
         headerPage.waitUntilSearchCategoryDropdownButtonIsClickable();
-        softAssert.assertFalse(headerPage.isSearchButtonEnabled(), "Search button is enabled by default.");
-        softAssert.assertEquals(headerPage.getSearchFieldPlaceholder(), "Որոնել", "Search field placeholder is wrong.");
+        softAssert.assertFalse(headerPage.isSearchButtonEnabled(), WRONG_INITIAL_STATE_SEARCH_ERROR_MESSAGE);
+        softAssert.assertEquals(headerPage.getSearchFieldPlaceholder(), "Որոնել", WRONG_PLACEHOLDER_SEARCH_ERROR_MESSAGE);
         softAssert.assertAll();
     }
 
@@ -65,15 +65,15 @@ public class SearchTest extends BaseTest {
         headerPage.waitUntilSearchCategoryDropdownButtonIsClickable();
         String searchTerm = "հայա";
         headerPage.setSearchKeyword(searchTerm);
-        softAssert.assertTrue(headerPage.isSearchSuggestionsViewPresent(), "Search suggestions did not appear");
+        softAssert.assertTrue(headerPage.isSearchSuggestionsViewPresent(), MISSING_SEARCH_SUGGESTION_ERROR_MESSAGE);
         IntStream.range(0, headerPage.getSearchSuggestionsCount())
                 .forEach((int i) -> {
                     String searchSuggestion = headerPage.getSearchSuggestion(i);
-                    softAssert.assertTrue(searchSuggestion.toLowerCase().contains(searchTerm), "Search suggestion does not contain the search term: " + searchSuggestion);
+                    softAssert.assertTrue(searchSuggestion.toLowerCase().contains(searchTerm), WRONG_SEARCH_SUGGESTION_ERROR_MESSAGE + searchSuggestion);
                 });
         String searchSuggestion = headerPage.getSearchSuggestion(1);
         SearchResultsPage searchResultsPage = headerPage.clickSearchSuggestion(1);
-        softAssert.assertTrue(searchResultsPage.getPageTitle().toLowerCase().contains(searchSuggestion.toLowerCase()), "Search page title does not contain the search suggestion");
+        softAssert.assertTrue(searchResultsPage.getPageTitle().toLowerCase().contains(searchSuggestion.toLowerCase()), WRONG_SEARCH_PAGE_TITLE_SUGGESTION_ERROR_MESSAGE);
         softAssert.assertAll();
     }
 
@@ -82,7 +82,7 @@ public class SearchTest extends BaseTest {
         HeaderPage headerPage = new HeaderPage(driver);
         headerPage.waitUntilSearchCategoryDropdownButtonIsClickable();
         headerPage.setSearchKeyword("հայհայա");
-        assertFalse(headerPage.isSearchSuggestionsViewPresent(), "Suggestions appear for invalid key");
+        assertFalse(headerPage.isSearchSuggestionsViewPresent(), EXISTING_SEARCH_SUGGESTION_ERROR_MESSAGE);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class SearchTest extends BaseTest {
         headerPage.waitUntilSearchCategoryDropdownButtonIsClickable();
         AdvancedSearchPage advancedSearchPage = headerPage.clickAdvancedSearchButton();
         advancedSearchPage.clickEmptySearchButton();
-        assertEquals(headerPage.getMessage(), "Enter a search term and try again.", "Wrong message for empty search");
+        assertEquals(headerPage.getMessage(), "Enter a search term and try again.", EMPTY_ADVANCED_SEARCH_ERROR_MESSAGE);
     }
 
     @Test
@@ -103,12 +103,12 @@ public class SearchTest extends BaseTest {
         String searchTerm = "Օտյան";
         advancedSearchPage.setAuthorKeyword(searchTerm);
         SearchResultsPage searchResultsPage = advancedSearchPage.clickSearchButton();
-        softAssert.assertEquals(searchResultsPage.getPageTitle().toLowerCase(), "Կատալոգի ընդլայնված որոնում".toLowerCase(), "Search page title is wrong");
+        softAssert.assertEquals(searchResultsPage.getPageTitle().toLowerCase(), "Կատալոգի ընդլայնված որոնում".toLowerCase(), WRONG_ADVANCED_SEARCH_PAGE_TITLE_ERROR_MESSAGE);
         IntStream.range(0, searchResultsPage.getSearchResultsCount())
                 .forEach((int i) -> {
                     ProductItemComponent item = searchResultsPage.getProduct(i);
                     boolean authorContainsSearchTerm = item.getAuthor().toLowerCase().contains(searchTerm.toLowerCase());
-                    softAssert.assertTrue(authorContainsSearchTerm, "Author contain the search term: " + item.getAuthor());
+                    softAssert.assertTrue(authorContainsSearchTerm, WRONG_ADVANCED_SEARCH_BEHAVIOUR_ERROR_MESSAGE + item.getAuthor());
                 });
         softAssert.assertAll();
     }

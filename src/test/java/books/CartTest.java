@@ -6,7 +6,7 @@ import pages.*;
 
 import java.util.stream.IntStream;
 
-import static constants.messages.ErrorMessages.WRONG_EMPTY_CART_ERROR_MESSAGE;
+import static constants.messages.ErrorMessages.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
@@ -19,13 +19,13 @@ public class CartTest extends BaseTest {
         addItemsToCart(2);
         CartPage cartPage = headerPage.clickCartButton();
         cartPage.waitUntilCartPageAppears();
-        softAssert.assertEquals(cartPage.getItemsCount(), 2, "Wrong number of products");
+        softAssert.assertEquals(cartPage.getItemsCount(), 2, WRONG_PRODUCT_COUNT_ON_CART_ERROR_MESSAGE);
         cartPage.clickProductCountIncreaseButton(1);
         int secondItemCount = cartPage.getProductCount(1);
-        softAssert.assertEquals(secondItemCount, 2, "Product Count Increase button does not work");
+        softAssert.assertEquals(secondItemCount, 2, CART_ITEM_INCREASE_ERROR_MESSAGE);
         cartPage.clickProductCountDecreaseButton(1);
         secondItemCount = cartPage.getProductCount(1);
-        softAssert.assertEquals(secondItemCount, 1, "Product Count Decrease button does not work");
+        softAssert.assertEquals(secondItemCount, 1, CART_ITEM_DECREASE_ERROR_MESSAGE);
         softAssert.assertAll();
     }
 
@@ -36,13 +36,13 @@ public class CartTest extends BaseTest {
         addItemsToCart(3);
         CartPage cartPage = headerPage.clickCartButton();
         cartPage.waitUntilCartPageAppears();
-        softAssert.assertEquals(cartPage.getTotalPrice(), calculateTotalPrice(cartPage), "Total price is not calculated correctly initially");
+        softAssert.assertEquals(cartPage.getTotalPrice(), calculateTotalPrice(cartPage), WRONG_INITIAL_TOTAL_PRICE_ERROR_MESSAGE);
         cartPage.clickProductCountIncreaseButton(2);
         cartPage.waitUntilCartPageAppears();
-        softAssert.assertEquals(cartPage.getTotalPrice(), calculateTotalPrice(cartPage), "Total price is not calculated correctly after product count increase");
+        softAssert.assertEquals(cartPage.getTotalPrice(), calculateTotalPrice(cartPage), WRONG_INCREASE_TOTAL_PRICE_ERROR_MESSAGE);
         cartPage.clickProductCountDecreaseButton(2);
         cartPage.waitUntilCartPageAppears();
-        softAssert.assertEquals(cartPage.getTotalPrice(), calculateTotalPrice(cartPage), "Total price is not calculated correctly after product count decrease");
+        softAssert.assertEquals(cartPage.getTotalPrice(), calculateTotalPrice(cartPage), WRONG_DECREASE_TOTAL_PRICE_ERROR_MESSAGE);
         softAssert.assertAll();
     }
 
@@ -56,14 +56,14 @@ public class CartTest extends BaseTest {
         cartPage.waitUntilCartPageAppears();
         CartItemRemovePopupComponent cartItemRemovePopupComponent = cartPage.clickProductDeleteButton(0);
         cartItemRemovePopupComponent.clickDismissButton();
-        softAssert.assertEquals(cartPage.getItemsCount(), initialItems, "Items count changed after dismiss");
+        softAssert.assertEquals(cartPage.getItemsCount(), initialItems, WRONG_ITEMS_COUNT_DISMISS_ERROR_MESSAGE);
         cartItemRemovePopupComponent = cartPage.clickProductDeleteButton(0);
         cartItemRemovePopupComponent.clickCloseButton();
-        softAssert.assertEquals(cartPage.getItemsCount(), initialItems, "Items count changed after close");
+        softAssert.assertEquals(cartPage.getItemsCount(), initialItems, WRONG_ITEMS_COUNT_CLOSE_ERROR_MESSAGE);
         cartItemRemovePopupComponent = cartPage.clickProductDeleteButton(1);
         cartItemRemovePopupComponent.clickAcceptButton();
         cartPage.waitUntilCartItemsAppear();
-        softAssert.assertEquals(cartPage.getItemsCount(), initialItems - 1, "Items count did not change after delete");
+        softAssert.assertEquals(cartPage.getItemsCount(), initialItems - 1, WRONG_ITEMS_COUNT_ACCEPT_ERROR_MESSAGE);
         cartItemRemovePopupComponent = cartPage.clickProductDeleteButton(0);
         cartItemRemovePopupComponent.clickAcceptButton();
         assertEquals(cartPage.getEmptyCartMessage(), "Ձեր զամբյուղում ոչինչ առկա չէ", WRONG_EMPTY_CART_ERROR_MESSAGE);
