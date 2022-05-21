@@ -10,7 +10,7 @@ public class AddToCartTest extends BaseTest{
     public void emptyCartMessage(){
         HeaderPage headerPage = new HeaderPage(driver);
         CartPage cartPage = headerPage.clickCartButton();
-        cartPage.waitUntilCartPageAppears();
+        cartPage.waitUntilEmptyCartMessageAppears();
         assertEquals(cartPage.getEmptyCartMessage(), "Ձեր զամբյուղում ոչինչ առկա չէ", WRONG_EMPTY_CART_ERROR_MESSAGE);
     }
 

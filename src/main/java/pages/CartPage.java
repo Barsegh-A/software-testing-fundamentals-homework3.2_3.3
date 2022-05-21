@@ -10,6 +10,7 @@ public class CartPage extends BasePage{
 
     private By emptyCart = By.className(EMPTY_CART);
     private By cart = By.id(CART);
+    private By cartCloseButton = By.id(CART_CLOSE_BUTTON);
     private By cartItem = By.cssSelector(CART_ITEM);
     private By productName = By.className(PRODUCT_NAME);
     private By productCount = By.cssSelector(PRODUCT_COUNT);
@@ -24,12 +25,25 @@ public class CartPage extends BasePage{
         super(driver);
     }
 
-    public String getEmptyCartMessage() {
-        return getText(emptyCart);
-    }
-
     public void waitUntilCartPageAppears() {
         waitUntilElementAppears(cart);
+    }
+
+    public void waitUntilEmptyCartMessageAppears() {
+        waitUntilElementAppears(emptyCart);
+    }
+
+    public void waitUntilCartItemsAppear() {
+        waitUntilElementAppears(getElement(cartItem, 0));
+    }
+
+
+    public boolean isCartDisplayed() {
+        return isElementDisplayed(cart);
+    }
+
+    public String getEmptyCartMessage() {
+        return getText(emptyCart);
     }
 
     public int getItemsCount(){
@@ -48,8 +62,13 @@ public class CartPage extends BasePage{
         return getNumbers(getText(productPrice, index));
     }
 
-    public void clickProductDeleteButton(int index) {
+    public int getTotalPrice() {
+        return getNumbers(getText(totalPrice));
+    }
+
+    public CartItemRemovePopupComponent clickProductDeleteButton(int index) {
         click(productDeleteButton, index);
+        return new CartItemRemovePopupComponent(driver);
     }
 
     public void clickProductCountDecreaseButton(int index) {
@@ -60,7 +79,7 @@ public class CartPage extends BasePage{
         click(productCountIncreaseButton, index);
     }
 
-    public int getTotalPrice() {
-        return getNumbers(getText(totalPrice));
+    public void clickCloseButton() {
+        click(cartCloseButton);
     }
 }

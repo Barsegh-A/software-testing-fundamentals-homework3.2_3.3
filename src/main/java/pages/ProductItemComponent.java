@@ -8,7 +8,7 @@ import org.openqa.selenium.interactions.Actions;
 import static constants.locators.ProductItemComponentConstants.*;
 import static utils.TestUtils.getNumbers;
 
-public class ProductItemComponent extends BasePage{
+public class ProductItemComponent extends BaseComponent{
 
     private By itemPrice = By.className(ITEM_PRICE);
     private By itemName = By.className(ITEM_NAME);
