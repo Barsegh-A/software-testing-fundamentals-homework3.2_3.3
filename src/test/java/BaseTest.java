@@ -19,10 +19,10 @@ public abstract class BaseTest {
     public static WebDriver driver;
 
     @BeforeClass
-    @Parameters("browser")
-    public static void initDriver(String browser) throws MalformedURLException {
+//    @Parameters("browser")
+    public static void initDriver() throws MalformedURLException {
         DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setBrowserName(browser);
+        caps.setBrowserName("chrome");
         driver = new RemoteWebDriver(new URL("http://localhost:4444/"), caps);
         driver.manage().window().maximize();
     }

@@ -9,7 +9,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class BasePage {
+import static utils.WaitUtils.getWaitUtils;
+
+public abstract class BasePage {
     protected WebDriver driver;
 
     public BasePage(WebDriver driver){
@@ -44,6 +46,7 @@ public class BasePage {
     }
 
     protected String getText(By by) {
+        waitUntilElementAppears(by);
         return getElement(by).getText();
     }
 
@@ -51,12 +54,20 @@ public class BasePage {
         return getElements(by).get(index).getText();
     }
 
+    protected String getAttribute(By by, String attribute) {
+        return getElement(by).getAttribute(attribute);
+    }
+
     protected String getValue(By by) {
-        return getElement(by).getAttribute("value");
+        return getAttribute(by, "value");
     }
 
     protected boolean isElementDisplayed(By by){
         return getElement(by).isDisplayed();
+    }
+
+    protected boolean isElementEnabled(By by){
+        return getElement(by).isEnabled();
     }
 
     protected void waitUntilElementDisappears(By by) {
@@ -67,5 +78,9 @@ public class BasePage {
     protected WebElement waitUntilElementIsClickable(By by) {
         return new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(by));
+    }
+
+    protected WebElement waitUntilElementAppears(By by) {
+        return getWaitUtils(driver).waitUntilElementIsVisible(by);
     }
 }
