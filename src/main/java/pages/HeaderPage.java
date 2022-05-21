@@ -47,11 +47,15 @@ public class HeaderPage extends BasePage {
     }
 
     public int getCartItemsCount() {
-        String count = getText(cartItemsCount);
-        if (count.isEmpty()) {
+        if(!isElementDisplayed(cartItemsCount)){
             return 0;
         }
-        return Integer.parseInt(count);
+        String text = getText(cartItemsCount);
+        if(!text.isEmpty()){
+            return Integer.parseInt(text);
+        } else {
+            return 0;
+        }
     }
 
     public String getMessage(){
