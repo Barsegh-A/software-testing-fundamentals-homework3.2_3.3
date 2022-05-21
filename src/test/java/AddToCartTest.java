@@ -15,6 +15,28 @@ public class AddToCartTest extends BaseTest{
     }
 
     @Test
+    //TODO fix or remove move target out of bounds
+    public void addToCartFromHome(){
+        SoftAssert softAssert = new SoftAssert();
+        HeaderPage headerPage = new HeaderPage(driver);
+        HomePage homePage = new HomePage(driver);
+        softAssert.assertEquals(headerPage.getCartItemsCount(), 0, CART_ITEMS_COUNT_ERROR_MESSAGE);
+        ProductItemComponent item = homePage.getProduct(0);
+        item.clickBuyButton();
+        String name = item.getName();
+        int price = item.getPrice();
+        softAssert.assertTrue(headerPage.getMessage().contains(name), WRONG_PRODUCT_NAME_ON_MESSAGE_ERROR_MESSAGE);
+        softAssert.assertEquals(headerPage.getCartItemsCount(), 1, CART_ITEMS_COUNT_ERROR_MESSAGE);
+        CartPage cartPage = headerPage.clickCartButton();
+        String nameOnCart = cartPage.getProductName(0);
+        int priceOnCart = cartPage.getProductPrice(0);
+        softAssert.assertEquals(name, nameOnCart, WRONG_PRODUCT_NAME_ON_CART_ERROR_MESSAGE);
+        softAssert.assertEquals(price, priceOnCart, WRONG_PRODUCT_PRICE_ON_CART_ERROR_MESSAGE);
+        softAssert.assertEquals(1, cartPage.getProductCount(0), WRONG_PRODUCT_COUNT_ON_CART_ERROR_MESSAGE);
+        softAssert.assertAll();
+    }
+
+    @Test
     public void addToCartFromSearch(){
         SoftAssert softAssert = new SoftAssert();
         HeaderPage headerPage = new HeaderPage(driver);
@@ -23,11 +45,15 @@ public class AddToCartTest extends BaseTest{
         ProductItemComponent item = searchResultsPage.getProduct(0);
         item.clickBuyButton();
         String name = item.getName();
+        int price = item.getPrice();
         softAssert.assertTrue(headerPage.getMessage().contains(name), WRONG_PRODUCT_NAME_ON_MESSAGE_ERROR_MESSAGE);
         softAssert.assertEquals(headerPage.getCartItemsCount(), 1, CART_ITEMS_COUNT_ERROR_MESSAGE);
         CartPage cartPage = headerPage.clickCartButton();
         String nameOnCart = cartPage.getProductName(0);
+        int priceOnCart = cartPage.getProductPrice(0);
         softAssert.assertEquals(name, nameOnCart, WRONG_PRODUCT_NAME_ON_CART_ERROR_MESSAGE);
+        softAssert.assertEquals(price, priceOnCart, WRONG_PRODUCT_PRICE_ON_CART_ERROR_MESSAGE);
+        softAssert.assertEquals(1, cartPage.getProductCount(0), WRONG_PRODUCT_COUNT_ON_CART_ERROR_MESSAGE);
         softAssert.assertAll();
     }
 
@@ -41,11 +67,15 @@ public class AddToCartTest extends BaseTest{
         productPage.clickBuyButton();
         productPage.waitUntilAddingToCartDisappears();
         String name = productPage.getProductName();
+        int price = productPage.getProductPrice();
         softAssert.assertTrue(headerPage.getMessage().contains(name), WRONG_PRODUCT_NAME_ON_MESSAGE_ERROR_MESSAGE);
         softAssert.assertEquals(headerPage.getCartItemsCount(), 2, CART_ITEMS_COUNT_ERROR_MESSAGE);
         CartPage cartPage = headerPage.clickCartButton();
         String nameOnCart = cartPage.getProductName(0);
+        int priceOnCart = cartPage.getProductPrice(0);
         softAssert.assertEquals(name, nameOnCart, WRONG_PRODUCT_NAME_ON_CART_ERROR_MESSAGE);
+        softAssert.assertEquals(price, priceOnCart, WRONG_PRODUCT_PRICE_ON_CART_ERROR_MESSAGE);
+        softAssert.assertEquals(2, cartPage.getProductCount(0), WRONG_PRODUCT_COUNT_ON_CART_ERROR_MESSAGE);
         softAssert.assertAll();
     }
 }

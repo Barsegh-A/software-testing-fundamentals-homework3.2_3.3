@@ -44,7 +44,9 @@ public class ProductItemComponent extends BasePage{
         Actions actions = new Actions(driver);
         actions.moveToElement(rootElement);
         actions.moveToElement(getElement(buyButton));
-        actions.click().build().perform();
+        actions.click()
+                .build()
+                .perform();
         waitUntilAddedAppears();
     }
 

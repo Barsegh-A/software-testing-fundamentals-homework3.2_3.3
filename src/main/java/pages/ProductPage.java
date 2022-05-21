@@ -17,7 +17,7 @@ public class ProductPage extends BasePage {
     private By addToCartButton = By.id(ADD_TO_CART_BUTTON);
     private By addingToCartButton = By.className(ADDING_TO_CART_BUTTON);
     private By insufficientQuantityMessage = By.className(INSUFFICIENT_QUANTITY_MESSAGE);
-    private By productPrice = By.className(PRODUCT_PRICE);
+    private By productPrice = By.cssSelector(PRODUCT_PRICE);
     private By productName = By.cssSelector(PRODUCT_NAME);
 
     public ProductPage(WebDriver driver) {
@@ -39,7 +39,7 @@ public class ProductPage extends BasePage {
     }
 
     public int getProductPrice() {
-        return Integer.parseInt(getElement(productPrice).getAttribute("data-price-amount"));
+        return getNumbers(getText(productPrice));
     }
 
     public String getProductName() {
