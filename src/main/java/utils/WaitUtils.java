@@ -11,8 +11,8 @@ import java.time.Duration;
 
 public class WaitUtils {
 
-    private static final int TIMEOUT = 30;
-    private static final int LONG_TIMEOUT = 120;
+    private static final int TIMEOUT = 15;
+    private static final int LONG_TIMEOUT = 60;
     private static final int SHORT_TIMEOUT = 5;
     private static WebDriverWait wait;
 

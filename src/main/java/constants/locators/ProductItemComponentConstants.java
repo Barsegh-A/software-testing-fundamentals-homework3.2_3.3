@@ -1,6 +1,6 @@
 package constants.locators;
 
-public class ItemPageConstants {
+public class ProductItemComponentConstants {
     public static final String ITEM = "product_inner";
     public static final String ITEM_PRICE = "price";
     public static final String ITEM_NAME = "product_name";
