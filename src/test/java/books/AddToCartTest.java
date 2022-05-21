@@ -1,3 +1,5 @@
+package books;
+
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.*;

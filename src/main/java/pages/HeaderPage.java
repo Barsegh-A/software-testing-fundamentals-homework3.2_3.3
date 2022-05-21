@@ -9,8 +9,9 @@ public class HeaderPage extends BasePage {
 
     private By searchField = By.id(SEARCH_FIELD);
     private By searchButton = By.xpath(SEARCH_BUTTON);
-
+    private By searchCategoryDropDownButton = By.className(SEARCH_CATEGORY_DROPDOWN_BUTTON);
     private By searchSuggestions = By.id(SEARCH_SUGGESTIONS);
+    private By searchSuggestionItem = By.className(SEARCH_SUGGESTION_ITEM);
     private By cartItemsCount = By.className(CART_ITEMS_COUNT);
 
     private By cartButton = By.className(CART_BUTTON);
@@ -18,6 +19,15 @@ public class HeaderPage extends BasePage {
 
     public HeaderPage(WebDriver driver) {
         super(driver);
+    }
+
+    public void waitUntilSearchCategoryDropdownButtonIsClickable() {
+        waitUntilElementAppears(searchCategoryDropDownButton);
+        waitUntilElementIsClickable(searchCategoryDropDownButton);
+    }
+
+    public void waitUntilSearchSuggestionsAppear() {
+        waitUntilElementAppears(searchSuggestions);
     }
 
     public void setSearchKeyword(String keyword) {
@@ -60,5 +70,18 @@ public class HeaderPage extends BasePage {
 
     public String getMessage(){
         return getText(message);
+    }
+
+    public SearchResultsPage clickSearchSuggestion(int index) {
+        click(searchSuggestionItem, index);
+        return new SearchResultsPage(driver);
+    }
+
+    public int getSearchSuggestionsCount() {
+        return getElements(searchSuggestionItem).size();
+    }
+
+    public String getSearchSuggestion(int index) {
+        return getText(searchSuggestionItem, index);
     }
 }
