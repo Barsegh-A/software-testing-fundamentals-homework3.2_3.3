@@ -1,9 +1,6 @@
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.CartPage;
-import pages.HeaderPage;
-import pages.ProductPage;
-import pages.SearchResultsPage;
+import pages.*;
 
 import static constants.messages.ErrorMessages.*;
 import static org.testng.Assert.assertEquals;
@@ -23,9 +20,9 @@ public class AddToCartTest extends BaseTest{
         HeaderPage headerPage = new HeaderPage(driver);
         SearchResultsPage searchResultsPage = new SearchResultsPage(driver, "բարև");
         softAssert.assertEquals(headerPage.getCartItemsCount(), 0, CART_ITEMS_COUNT_ERROR_MESSAGE);
-        searchResultsPage.clickBuyButton(0);
-        searchResultsPage.waitUntilAddedAppears();
-        String name = searchResultsPage.getSearchResultProductName(0);
+        ProductItemComponent item = searchResultsPage.getProduct(0);
+        item.clickBuyButton();
+        String name = item.getName();
         softAssert.assertTrue(headerPage.getMessage().contains(name), WRONG_PRODUCT_NAME_ON_MESSAGE_ERROR_MESSAGE);
         softAssert.assertEquals(headerPage.getCartItemsCount(), 1, CART_ITEMS_COUNT_ERROR_MESSAGE);
         CartPage cartPage = headerPage.clickCartButton();

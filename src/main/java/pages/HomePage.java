@@ -6,7 +6,7 @@ import java.util.List;
 
 public class HomePage extends BasePage{
 
-    private List<ItemPage> items;
+    private List<ProductItemComponent> items;
 
     public HomePage(WebDriver driver) {
         super(driver);

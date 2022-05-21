@@ -1,6 +1,7 @@
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.HeaderPage;
+import pages.ProductItemComponent;
 import pages.ProductPage;
 import pages.SearchResultsPage;
 
@@ -52,7 +53,8 @@ public class BooksTest extends BaseTest {
     @Test
     public void priceTest(){
         SearchResultsPage searchResultsPage = new SearchResultsPage(driver, "ապուշը");
-        int priceInSearch = searchResultsPage.getSearchResultProductPrice(0);
+        ProductItemComponent item = searchResultsPage.getProduct(0);
+        int priceInSearch = item.getPrice();
         ProductPage productPage = searchResultsPage.clickSearchResultItem(0);
         int priceInProduct = productPage.getProductPrice();
         assertEquals(priceInSearch, priceInProduct, WRONG_PRICE_ERROR_MESSAGE);
